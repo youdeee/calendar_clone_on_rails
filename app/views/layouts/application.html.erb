@@ -4,6 +4,9 @@
     <%= render "layouts/head" %>
   </head>
   <body>
-    <%= yield %>
+    <div id="root">
+      <%= yield %>
+    </div>
+    <%= javascript_pack_tag "calendar" %>
   </body>
 </html>

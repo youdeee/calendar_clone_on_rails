@@ -11,12 +11,9 @@ import EventIcon from '@material-ui/icons/Event'
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import { Store } from './App'
-/* import * as Colors from '@material-ui/core/colors'; */
+import Box from '@material-ui/core/Box'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
   menuButton: {
     marginRight: theme.spacing(1),
   },
@@ -62,7 +59,14 @@ const Header = () => {
         >
           <NavigateNextIcon />
         </IconButton>
-        <div>{state.currentMonth.format('Y年 M月')}</div>
+        <Box flexGrow="1">{state.currentMonth.format('Y年 M月')}</Box>
+        <Button
+          color="inherit"
+          variant="outlined"
+          onClick={() => location.href = '/users/sign_out'}
+        >
+          ログアウト
+        </Button>
       </Toolbar>
     </AppBar>
   )
