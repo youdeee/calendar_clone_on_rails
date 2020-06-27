@@ -1,0 +1,7 @@
+ja:
+  common:
+    site: DEFAULT_APP_NAME
+    login: ログイン
+    logout: ログアウト
+    signup: アカウント作成
+    delete_action: 削除する

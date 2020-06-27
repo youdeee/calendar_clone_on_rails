@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= render "layouts/head" %>
+  </head>
+  <body>
+    <nav class="site-header sticky-top py-1">
+      <div class="container d-flex justify-content-between">
+        <%= link_to t("common.site"), root_path, class: "py-2" %>
+        <div class="py-2">
+          <%= link_to t("common.login"), new_user_session_path %>
+          <%= link_to t("common.signup"), new_user_registration_path, class: "pl-2" %>
+        </div>
+      </div>
+    </nav>
+    <%= yield %>
+    <%= render "layouts/footer" %>
+  </body>
+</html>
