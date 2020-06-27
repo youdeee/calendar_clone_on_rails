@@ -3,11 +3,6 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
-require("@rails/activestorage").start()
-require("channels")
-
-
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -15,15 +10,20 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import $ from 'jquery'
-global.$ = $
-global.jQuery = $
-import 'bootstrap'
+import $ from "jquery";
+import "bootstrap";
 
-import moment from 'moment'
-moment.locale('ja')
-global.moment = moment
+import moment from "moment";
 
-import '@fortawesome/fontawesome-free/js/all'
+import "@fortawesome/fontawesome-free/js/all";
 
-import '../stylesheets/application'
+import "../stylesheets/application";
+
+require("@rails/ujs").start();
+require("@rails/activestorage").start();
+require("channels");
+
+global.$ = $;
+global.jQuery = $;
+moment.locale("ja");
+global.moment = moment;

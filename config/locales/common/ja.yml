@@ -1,6 +1,6 @@
 ja:
   common:
-    site: DEFAULT_APP_NAME
+    site: カレンダー
     login: ログイン
     logout: ログアウト
     signup: アカウント作成
