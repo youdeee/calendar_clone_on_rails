@@ -10,20 +10,20 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import $ from "jquery";
-import "bootstrap";
+import $ from 'jquery'
+import 'bootstrap'
 
-import moment from "moment";
+import moment from 'moment'
 
-import "@fortawesome/fontawesome-free/js/all";
+import '@fortawesome/fontawesome-free/js/all'
 
-import "../stylesheets/application";
+import '../stylesheets/application'
 
-require("@rails/ujs").start();
-require("@rails/activestorage").start();
-require("channels");
+require('@rails/ujs').start()
+require('@rails/activestorage').start()
+require('channels')
 
-global.$ = $;
-global.jQuery = $;
-moment.locale("ja");
-global.moment = moment;
+global.$ = $
+global.jQuery = $
+moment.locale('ja')
+global.moment = moment
