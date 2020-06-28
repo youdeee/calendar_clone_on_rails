@@ -1,26 +1,10 @@
-import React, { useReducer } from 'react'
+import React, { useState } from 'react'
 
 import moment from 'moment'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import CalendarEvent from './CalendarEvent'
 import AddEventModal from './AddEventModal'
-
-const initialState = {
-  showAddEventModal: false,
-}
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'TOGGLE_ADD_EVENT_MODAL':
-      return {
-        ...state,
-        showAddEventModal: action.payload,
-      }
-    default:
-      return state
-  }
-}
 
 const useStyles = makeStyles((theme) => ({
   date: {
@@ -37,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CalendarDay = (props) => {
   const classes = useStyles()
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [showModal, setShowModal] = useState(false)
 
   const format = props.day.date() === 1 ? 'M月D日' : 'D'
   const today = props.day.isSame(moment(), 'day')
@@ -58,31 +42,27 @@ const CalendarDay = (props) => {
         borderLeft={0}
         borderTop={0}
         borderColor="grey.500"
-        onClick={(e) =>
-          dispatch({ type: 'TOGGLE_ADD_EVENT_MODAL', payload: true })
-        }
+        onClick={() => setShowModal(true)}
       >
         <Box className={classes.date} textAlign="center">
           <Box {...titleAttr}>{props.day.format(format)}</Box>
         </Box>
         <Box className={classes.events}>
-          {props.events.map((event, i) => {
+          {props.events.map((event) => {
             return (
-              <Box className={classes.event}>
-                <CalendarEvent
-                  event={event}
-                  key={`${props.day.format('YYYY-MM-DD')}-event-${i}`}
-                />
+              <Box
+                className={classes.event}
+                key={`${props.day.format('YYYY-MM-DD')}-event-${event.id}`}
+              >
+                <CalendarEvent event={event} />
               </Box>
             )
           })}
         </Box>
       </Box>
       <AddEventModal
-        open={state.showAddEventModal}
-        onClose={() =>
-          dispatch({ type: 'TOGGLE_ADD_EVENT_MODAL', payload: false })
-        }
+        open={showModal}
+        onClose={() => setShowModal(false)}
         day={props.day}
       />
     </>

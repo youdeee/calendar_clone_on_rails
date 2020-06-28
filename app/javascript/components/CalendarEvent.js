@@ -1,24 +1,8 @@
-import React, { useReducer } from 'react'
+import React, { useState } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import EventModal from './EventModal'
-
-const initialState = {
-  showEventModal: false,
-}
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'TOGGLE_EVENT_MODAL':
-      return {
-        ...state,
-        showEventModal: action.payload,
-      }
-    default:
-      return state
-  }
-}
 
 const useStyles = makeStyles((theme) => ({
   event: {
@@ -28,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CalendarEvent = (props) => {
   const classes = useStyles()
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [showModal, setShowModal] = useState(false)
 
   return (
     <>
@@ -39,15 +23,15 @@ const CalendarEvent = (props) => {
         borderRadius={4}
         onClick={(e) => {
           e.stopPropagation()
-          dispatch({ type: 'TOGGLE_EVENT_MODAL', payload: true })
+          setShowModal(true)
         }}
       >
         {props.event.name || '(タイトルなし)'}
       </Box>
       <EventModal
-        open={state.showEventModal}
+        open={showModal}
         onClose={() => {
-          dispatch({ type: 'TOGGLE_EVENT_MODAL', payload: false })
+          setShowModal(false)
         }}
         event={props.event}
       />

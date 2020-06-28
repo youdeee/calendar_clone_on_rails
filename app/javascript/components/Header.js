@@ -10,8 +10,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 import EventIcon from '@material-ui/icons/Event'
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
-import { Store } from './App'
 import Box from '@material-ui/core/Box'
+import { Store } from './App'
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -63,7 +63,7 @@ const Header = () => {
         <Button
           color="inherit"
           variant="outlined"
-          onClick={() => location.href = '/users/sign_out'}
+          onClick={() => (location.href = '/users/sign_out')}
         >
           ログアウト
         </Button>

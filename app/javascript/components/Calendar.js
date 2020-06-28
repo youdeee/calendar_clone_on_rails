@@ -28,12 +28,14 @@ const Calendar = () => {
   const numberOfweedDay = 7
 
   useEffect(() => {
+    let cleanedUp = false
     async function fetchData() {
-      const result = await axios('/events');
+      const result = await axios('/events')
       dispatch({ type: 'SET_EVENTS', payload: result.data })
     }
-    fetchData();
-  }, []);
+    if (!cleanedUp) fetchData()
+    return () => (cleanedUp = true)
+  }, [])
 
   const weekDays = (startWeekDay) => {
     moment.locale('ja')
@@ -81,6 +83,12 @@ const Calendar = () => {
 
   const dayRows = _dayRows(state.currentMonth.clone(), state.startWeekDay)
 
+  const groupedEvents = state.events.reduce((r, a) => {
+    r[a.date] = r[a.date] || []
+    r[a.date].push(a)
+    return r
+  }, {})
+
   return (
     <div className={classes.calendar}>
       <Box display="flex" className={classes.weekDay}>
@@ -100,7 +108,11 @@ const Calendar = () => {
             {dayRow.map((day) => {
               const k = day.format('YYYY-MM-DD')
               return (
-                <CalendarDay day={day} events={state.events[k] || []} key={k} />
+                <CalendarDay
+                  day={day}
+                  events={groupedEvents[k] || []}
+                  key={k}
+                />
               )
             })}
           </Box>

@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useEffect } from 'react'
+import React, { createContext, useReducer } from 'react'
 import moment from 'moment'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment'
@@ -7,7 +7,7 @@ import Header from './Header'
 
 const initialState = {
   currentMonth: moment(),
-  events: {},
+  events: [],
   startWeekDay: 6,
 }
 
@@ -40,12 +40,17 @@ const reducer = (state, action) => {
     case 'ADD_EVENT':
       return {
         ...state,
-        events: addEvent(state.events, action.payload),
+        events: [...state.events, action.payload],
       }
     case 'DELETE_EVENT':
       return {
         ...state,
-        events: deleteEvent(state.events, action.payload),
+        events: state.events.filter((e) => e.id !== action.payload.id),
+      }
+    case 'UPDATE_EVENT':
+      return {
+        ...state,
+        events: updateEvent(state.events, action.payload),
       }
     case 'SET_EVENTS':
       return {
@@ -57,23 +62,9 @@ const reducer = (state, action) => {
   }
 }
 
-const addEvent = (events, event) => {
-  const { date } = event
-  if (events[date]) {
-    events[date].push(event)
-  } else {
-    events[date] = [event]
-  }
-  return events
-}
-
-const deleteEvent = (events, event) => {
-  const { id, date } = event
-  const i = events[date].findIndex((e) => e.id === id)
-  events[date].splice(i, 1)
-  if (events[date] === []) {
-    delete events[date]
-  }
+const updateEvent = (events, event) => {
+  const i = events.findIndex((e) => e.id === event.id)
+  events[i] = event
   return events
 }
 
