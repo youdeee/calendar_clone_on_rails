@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Store } from './App'
 import CalendarDay from './CalendarDay'
 
 import moment from 'moment'
+import axios from 'axios'
 import 'moment/locale/ja'
 import Box from '@material-ui/core/Box'
 import { makeStyles } from '@material-ui/core/styles'
@@ -22,9 +23,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Calendar = () => {
   const classes = useStyles()
-  const { state } = useContext(Store)
+  const { state, dispatch } = useContext(Store)
 
   const numberOfweedDay = 7
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await axios('/events');
+      dispatch({ type: 'SET_EVENTS', payload: result.data })
+    }
+    fetchData();
+  }, []);
 
   const weekDays = (startWeekDay) => {
     moment.locale('ja')

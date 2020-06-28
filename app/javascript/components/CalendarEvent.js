@@ -50,7 +50,6 @@ const CalendarEvent = (props) => {
           dispatch({ type: 'TOGGLE_EVENT_MODAL', payload: false })
         }}
         event={props.event}
-        day={props.day}
       />
     </>
   )

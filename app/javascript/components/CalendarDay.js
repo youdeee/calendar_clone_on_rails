@@ -41,10 +41,10 @@ const CalendarDay = (props) => {
 
   const format = props.day.date() === 1 ? 'M月D日' : 'D'
   const today = props.day.isSame(moment(), 'day')
-  let attr = { display: 'inline' }
+  let titleAttr = { display: 'inline' }
   if (today)
-    attr = {
-      ...attr,
+    titleAttr = {
+      ...titleAttr,
       color: 'white',
       borderRadius: '50%',
       bgcolor: 'info.main',
@@ -63,7 +63,7 @@ const CalendarDay = (props) => {
         }
       >
         <Box className={classes.date} textAlign="center">
-          <Box {...attr}>{props.day.format(format)}</Box>
+          <Box {...titleAttr}>{props.day.format(format)}</Box>
         </Box>
         <Box className={classes.events}>
           {props.events.map((event, i) => {
@@ -72,7 +72,6 @@ const CalendarDay = (props) => {
                 <CalendarEvent
                   event={event}
                   key={`${props.day.format('YYYY-MM-DD')}-event-${i}`}
-                  day={props.day}
                 />
               </Box>
             )

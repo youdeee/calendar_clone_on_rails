@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 
+import axios from '../lib/axios'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
@@ -33,10 +34,12 @@ const AddEventModal = (props) => {
   const classes = useStyles()
   const { dispatch } = useContext(Store)
   const { handleSubmit, register, control } = useForm()
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    data = { ...data, date: data.date.format('YYYY-MM-DD') }
+    const result = await axios.post('/events', data);
     dispatch({
       type: 'ADD_EVENT',
-      payload: { ...data, day: data.day.format('YYYY-MM-DD') },
+      payload: data
     })
     props.onClose()
   }
@@ -64,7 +67,7 @@ const AddEventModal = (props) => {
             <Grid item>
               <Controller
                 as={<DatePicker />}
-                name="day"
+                name="date"
                 format="YYYY/MM/DD"
                 variant="inline"
                 value={register}

@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 
+import axios from '../lib/axios'
+import moment from 'moment'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
@@ -41,16 +43,16 @@ const EventModal = (props) => {
         <Box display="flex" flexDirection="row-reverse">
           <CloseIcon onClick={props.onClose} />
           <DeleteIcon
-            onClick={(e) => {
-              e.stopPropagation()
-              dispatch({
-                type: 'DELETE_EVENT',
-                payload: {
-                  ...props.event,
-                  day: props.day.format('YYYY-MM-DD'),
-                },
-              })
-              props.onClose()
+            onClick={async (e) => {
+                e.stopPropagation()
+                const result = await axios.delete(`/events/${props.event.id}`);
+                dispatch({
+                  type: 'DELETE_EVENT',
+                  payload: {
+                    ...props.event,
+                  },
+                })
+                props.onClose()
             }}
           />
         </Box>
@@ -64,7 +66,7 @@ const EventModal = (props) => {
             <AccessTimeIcon />
           </Grid>
           <Grid item>
-            <Box>{props.day.format('M月D日')}</Box>
+            <Box>{moment(props.event.date).format('M月D日')}</Box>
           </Grid>
         </Grid>
         <Grid container spacing={1} alignItems="flex-end">

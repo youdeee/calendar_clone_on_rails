@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useReducer, useEffect } from 'react'
 import moment from 'moment'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment'
@@ -7,67 +7,7 @@ import Header from './Header'
 
 const initialState = {
   currentMonth: moment(),
-  events: {
-    '2020-06-26': [
-      {
-        name: '予定1',
-        place: '',
-        description: '',
-      },
-      {
-        name: '',
-        place: '自宅',
-        description: '勉強する',
-      },
-      {
-        name: '',
-        place: '自宅',
-        description: '勉強する',
-      },
-      {
-        name: '',
-        place: '自宅',
-        description: '勉強する',
-      },
-      {
-        name: '',
-        place: '自宅',
-        description: '勉強する',
-      },
-      {
-        name: '',
-        place: '自宅',
-        description: '勉強する',
-      },
-      {
-        name: '',
-        place: '自宅',
-        description: '勉強する',
-      },
-      {
-        name: '',
-        place: '自宅',
-        description: '勉強する',
-      },
-      {
-        name: '',
-        place: '自宅',
-        description: '勉強する',
-      },
-      {
-        name: '',
-        place: '自宅',
-        description: '勉強する',
-      },
-    ],
-    '2020-06-22': [
-      {
-        name: '前の予定',
-        place: '',
-        description: '',
-      },
-    ],
-  },
+  events: {},
   startWeekDay: 6,
 }
 
@@ -107,29 +47,32 @@ const reducer = (state, action) => {
         ...state,
         events: deleteEvent(state.events, action.payload),
       }
+    case 'SET_EVENTS':
+      return {
+        ...state,
+        events: action.payload || {},
+      }
     default:
       return state
   }
 }
 
 const addEvent = (events, event) => {
-  const { name, place, description } = event
-  if (events[event.day]) {
-    events[event.day].push({ name, place, description })
+  const { date } = event
+  if (events[date]) {
+    events[date].push(event)
   } else {
-    events[event.day] = [{ name, place, description }]
+    events[date] = [event]
   }
   return events
 }
 
 const deleteEvent = (events, event) => {
-  const { name, place, description } = event
-  const i = events[event.day].findIndex(
-    (e) => e.name === name && e.place === place && e.description === description
-  )
-  events[event.day].splice(i, 1)
-  if (events[event.day] === []) {
-    delete events[event.day]
+  const { id, date } = event
+  const i = events[date].findIndex((e) => e.id === id)
+  events[date].splice(i, 1)
+  if (events[date] === []) {
+    delete events[date]
   }
   return events
 }

@@ -2,11 +2,11 @@
 <html>
   <head>
     <%= render "layouts/head" %>
+    <%= javascript_pack_tag "calendar" %>
   </head>
   <body>
     <div id="root">
       <%= yield %>
     </div>
-    <%= javascript_pack_tag "calendar" %>
   </body>
 </html>
