@@ -15,7 +15,6 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password:
-  socket: /tmp/mysql.sock
 
 development:
   <<: *default
@@ -49,6 +48,4 @@ test:
 #
 production:
   <<: *default
-  database: calendar_clone_on_rails_production
-  username: calendar_clone_on_rails
-  password: <%= ENV['CALENDAR_CLONE_ON_RAILS_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>

@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.action_mailer.default_url_options = { host: "DEFAULT_HOST", protocol: "https" }
+  config.action_mailer.default_url_options = { host: "g-calendar-clone.herokuapp.com", protocol: "https" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :user_name => ENV["SENDGRID_USERNAME"],
