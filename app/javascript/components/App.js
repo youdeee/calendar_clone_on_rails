@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from 'react'
 import moment from 'moment'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import Calendar from './Calendar'
 import Header from './Header'
 
@@ -72,6 +73,7 @@ const App = () => {
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <Provider>
+        <CssBaseline />
         <Header />
         <Calendar />
       </Provider>
