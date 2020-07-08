@@ -56,7 +56,7 @@ const reducer = (state, action) => {
     case 'SET_EVENTS':
       return {
         ...state,
-        events: action.payload || {},
+        events: action.payload || [],
       }
     default:
       return state
