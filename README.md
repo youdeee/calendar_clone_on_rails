@@ -1,6 +1,6 @@
 # グーグルカレンダー クローンアプリ
 https://github.com/youdeee/calendar_clone_on_react
-をrailsにサーバーで乗せて動かせるようにしたもの。
+をサーバーで動かせるようにrailsに移植したもの。
 
 ## DEMO
 https://g-calendar-clone.herokuapp.com/
